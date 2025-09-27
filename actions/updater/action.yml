@@ -36,5 +36,6 @@ runs:
         echo "Running: $cmd"
         output=$($cmd)
         
+        echo "Old version ${{ inputs.version }}, new version $output"
         # set output
         echo "result=$output" >> $GITHUB_OUTPUT
