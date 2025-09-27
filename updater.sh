@@ -1,19 +1,11 @@
 #!/bin/bash
 utils_file=./updater_utils.sh
+
+# shellcheck source=./updater_utils.sh
 source "$utils_file"
 
-version_file=./version
-current_version=$(cat "$version_file")
+# shellcheck source=./args_parser.sh
+source ./args_parser.sh "$@" || exit 1
 
-echo "Current version: $current_version"
-
-read MAJOR MINOR PATCH SUFFIX <<< "$(parse_version "$current_version")"
-echo "MAJOR: $MAJOR, MINOR: $MINOR, PATCH: $PATCH, SUFFIX: $SUFFIX"
-
-increase_version_mode="$1"
-if [[ $increase_version_mode != "MAJOR" && $increase_version_mode != "MINOR" && $increase_version_mode != "PATCH" ]]; then
-    echo "Error: wrong mode $increase_version_mode passed valid modes: MAJOR, MINOR, PATCH"
-    exit 1
-fi
-
-increase_version $current_version $increase_version_mode
+check_version_mode "$increase_version_mode" || exit 1
+increase_version "$current_version" "$increase_version_mode" "$remove_suffix" "$new_suffix" || exit 1
