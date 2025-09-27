@@ -17,6 +17,10 @@ inputs:
     required: false
     default: ""
 
+outputs:
+  result:
+    description: "The updated version"
+
 runs:
   using: "composite"
   steps:
