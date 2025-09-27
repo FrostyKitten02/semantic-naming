@@ -45,7 +45,7 @@ increase_version() {
 
    local new_version
    new_version=$(build_version "$MAJOR" "$MINOR" "$PATCH" "$SUFFIX")
-   echo "$new_version"
+   printf "%s" "$new_version"
 }
 
 
